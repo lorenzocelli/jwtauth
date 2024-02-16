@@ -3,11 +3,11 @@
 A JWT-based authentication system for 
 [Django REST Framework](https://github.com/encode/django-rest-framework/tree/master).
 
-## Installation
+## 🪄 Installation
 
 WIP
 
-## Configuration
+## ⚙️ Configuration
 
 Add `jwtauth` to your `INSTALLED_APPS`:
 
@@ -41,6 +41,6 @@ MIDDLEWARE = [
 
 You can now run `python manage.py migrate` to create the models.
 
-## Usage
+## 📕 Usage
 
 WIP
