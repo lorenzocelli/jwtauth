@@ -39,5 +39,8 @@ MIDDLEWARE = [
 ]
 ```
 
+You can now run `python manage.py migrate` to create the models.
+
 ## Usage
 
+WIP
