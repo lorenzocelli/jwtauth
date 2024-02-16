@@ -1,0 +1,24 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "jwtauth"
+version = "0.0.1"
+authors = [
+  { name="Lorenzo Celli", email="lorenzo.celli00@gmail.com" },
+]
+description = "JWT-based authentication for Django REST Framework"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+  "Django~=5.0.1",
+  "PyJWT~=2.8.0",
+  "djangorestframework~=3.14.0",
+  "pytest~=7.4.0",
+]
