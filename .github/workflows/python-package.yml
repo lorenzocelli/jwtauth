@@ -31,3 +31,15 @@ jobs:
     - name: Test with pytest
       run: |
         pytest
+    - name: Install Hatch
+      run: pip install hatch
+    - name: Build dist
+      run: hatch build
+    - name: Publish on PyPI
+      if: github.ref == 'refs/heads/main'
+      run: hatch publish
+    - name: Upload package artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: jwtauth-${{ matrix.python-version }}
+        path: dist/jwtauth-0.0.1.tar.gz
