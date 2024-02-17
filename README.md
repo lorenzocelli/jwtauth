@@ -91,5 +91,5 @@ def logout_view(request):
 ## 🚫 Limitations
 
 - This is a prototype, not ready to be used in production.
-- Active tokens and refresh tokens are not deleted from the database after they expire.
+- Active tokens and blacklisted tokens are not automatically deleted from the database after they expire.
 - Authentication through header `Authorization: Bearer` is not yet supported.
