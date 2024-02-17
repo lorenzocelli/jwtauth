@@ -137,3 +137,4 @@ def my_view(request):
 - This is a prototype, not ready to be used in production.
 - Active tokens and blacklisted tokens are not automatically deleted from the database after they expire.
 - Authentication through header `Authorization: Bearer` is not yet supported.
+- Tokens are not encrypted in the database.
