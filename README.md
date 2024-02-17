@@ -52,13 +52,6 @@ Use the `login` method to create a JWT token for the user and store it in the co
 the user will be authenticated. For example:
 
 ```python
-from django.contrib.auth import authenticate
-
-from rest_framework.exceptions import AuthenticationFailed
-from rest_framework.decorators import api_view
-from rest_framework.parsers import JSONParser
-from rest_framework.response import Response
-
 from jwtauth import login
 
 
