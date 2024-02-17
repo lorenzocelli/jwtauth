@@ -76,7 +76,9 @@ def login_view(request):
         # credentials are not valid
         raise AuthenticationFailed('Invalid username or password.', 403)
 
+    # login the user
     login(request, user)
+    
     return Response(status=204)
 ```
 
@@ -87,7 +89,9 @@ from jwtauth import logout
 
 @api_view(['DELETE'])
 def logout_view(request):
+    # logout the user
     logout(request)
+    
     return Response(status=204)
 ```
 
