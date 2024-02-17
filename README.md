@@ -88,6 +88,50 @@ def logout_view(request):
     return Response(status=204)
 ```
 
+To check if a user is logged in, you can use REST framework's permissions:
+
+```python
+from rest_framework.permissions import IsAuthenticated
+
+
+# function view with permission decorator
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def logged_view(request):
+    # only for logged users, otherwise a 403 Forbidden response is returned
+    return Response(status=204)
+```
+
+Equivalently, using class views:
+
+```python
+from rest_framework.permissions import IsAuthenticated
+
+
+# class view with permission attribute
+class LoggedView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        # only for logged users, otherwise a 403 Forbidden response is returned
+        return Response(status=204)
+```
+
+You can also rely on the `request.user` attribute to access the logged user (or Django's `AnonymousUser` if the user is
+not logged in):
+
+```python
+@api_view(['GET'])
+def my_view(request):
+
+    if request.user.is_authenticated:
+        # do something with the logged user
+        # ...
+
+    # user is not logged in
+    # ...
+```
+
 ## 🚫 Limitations
 
 - This is a prototype, not ready to be used in production.
