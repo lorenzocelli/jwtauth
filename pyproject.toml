@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "jwtauth"
+name = "drf-cookie-jwtauth"
 version = "0.0.1"
 authors = [
   { name="Lorenzo Celli", email="lorenzo.celli00@gmail.com" },
