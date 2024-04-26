@@ -24,3 +24,6 @@ dependencies = [
   "PyJWT~=2.8.0",
   "djangorestframework~=3.14.0",
 ]
+
+[tool.black]
+line-length = 100
