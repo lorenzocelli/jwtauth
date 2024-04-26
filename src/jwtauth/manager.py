@@ -29,12 +29,12 @@ class AuthManager:
             # we end up here if:
             # - one of the tokens was forged by a malicious user
             # - the refresh token was blacklisted
-            raise exceptions.AuthenticationFailed('Invalid tokens')
+            raise exceptions.AuthenticationFailed("Invalid tokens")
 
         if self.access_token.expired():
             if self.refresh_token.expired():
                 # both tokens are expired, the user has to log in again
-                raise exceptions.AuthenticationFailed('Expired tokens')
+                raise exceptions.AuthenticationFailed("Expired tokens")
 
             # we silently refresh the authentication token and let the user in
             self.silent_refresh = True
@@ -73,7 +73,11 @@ class AuthManager:
             set_refresh_token(response, self.refresh_token)
 
         if self.logging_out:
-            if self.refresh_token and self.refresh_token.valid() and not self.refresh_token.expired():
+            if (
+                self.refresh_token
+                and self.refresh_token.valid()
+                and not self.refresh_token.expired()
+            ):
                 # blacklist the token if valid and still alive
                 self.refresh_token.blacklist()
 
@@ -91,10 +95,10 @@ def get_token(request, key, token_class):
 def set_token(response, key, token):
     if settings.DEBUG:
         # locally, we allow non-secure cookies
-        response.set_cookie(key, token.encoding, httponly=True, samesite='Strict', secure=False)
+        response.set_cookie(key, token.encoding, httponly=True, samesite="Strict", secure=False)
         return
 
-    response.set_cookie(key, token.encoding, httponly=True, samesite='Strict', secure=True)
+    response.set_cookie(key, token.encoding, httponly=True, samesite="Strict", secure=True)
 
 
 def get_access_token(request):

@@ -10,24 +10,21 @@ from rest_framework.response import Response
 from jwtauth import login, logout
 
 
-@api_view(['POST'])
+@api_view(["POST"])
 def login_view(request):
     body = JSONParser().parse(request)
 
-    user = authenticate(
-        username=body['username'],
-        password=body['password']
-    )
+    user = authenticate(username=body["username"], password=body["password"])
 
     if user is None:
         # credentials are not valid
-        raise AuthenticationFailed('Invalid username or password.', 403)
+        raise AuthenticationFailed("Invalid username or password.", 403)
 
     login(request, user)
     return Response(status=204)
 
 
-@api_view(['GET'])
+@api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def logged_view(request):
     return Response(status=204)
@@ -40,7 +37,7 @@ class LoggedView(APIView):
         return Response(status=204)
 
 
-@api_view(['GET'])
+@api_view(["GET"])
 def username_view(request):
 
     username = ""
@@ -48,12 +45,10 @@ def username_view(request):
     if request.user.is_authenticated:
         username = request.user.username
 
-    return Response({
-        "username": username
-    })
+    return Response({"username": username})
 
 
-@api_view(['DELETE'])
+@api_view(["DELETE"])
 @permission_classes([IsAuthenticated])
 def logout_view(request):
     logout(request)

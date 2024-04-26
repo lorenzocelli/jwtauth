@@ -11,6 +11,7 @@ on:
 
 jobs:
   build:
+    name: Test 🧪
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -30,12 +31,14 @@ jobs:
     - name: Test with pytest
       run: |
         pytest
-    - name: Install Hatch
-      run: pip install hatch
-    - name: Build dist
-      run: hatch build
-    - name: Upload package artifact
-      uses: actions/upload-artifact@v3
-      with:
-        name: jwtauth-${{ matrix.python-version }}
-        path: dist/jwtauth-0.0.1.tar.gz
+  lint:
+    name: Lint 🧹
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: psf/black@stable
+      - name: Run flake8 ❄
+        uses: py-actions/flake8@v2
+        with:
+          max-line-length: "100"
+          plugins: "flake8-bugbear==22.1.11 flake8-black"
