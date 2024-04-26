@@ -10,8 +10,8 @@ from jwtauth.models import BlacklistedToken, ActiveToken
 
 import jwt
 
-IAT = 'iat'
-EXP = 'exp'
+IAT = "iat"
+EXP = "exp"
 
 UserModel = get_user_model()
 
@@ -19,7 +19,9 @@ UserModel = get_user_model()
 class Token:
     registered_claims = [IAT, EXP]
 
-    def __init__(self, from_encoding: str = None, from_data: dict = None, duration: timedelta = None):
+    def __init__(
+        self, from_encoding: str = None, from_data: dict = None, duration: timedelta = None
+    ):
         """
         Initialize a JWT token, either decoding it from a string or encoding it from data.
 
@@ -34,7 +36,8 @@ class Token:
         if from_encoding and from_data:
             raise Exception(
                 "Please specify either the data to encode the token or the "
-                "encoding from which to derive the data, not both.")
+                "encoding from which to derive the data, not both."
+            )
 
         if from_data and not timedelta:
             raise Exception("Please specify a duration for the token.")
@@ -72,9 +75,7 @@ class Token:
         }
 
         self.encoding = jwt.encode(
-            self.jwt_data,
-            api_settings.SIGNING_KEY,
-            algorithm=api_settings.ALGORITHM
+            self.jwt_data, api_settings.SIGNING_KEY, algorithm=api_settings.ALGORITHM
         )
 
     def decode(self, data) -> bool:
@@ -89,9 +90,9 @@ class Token:
                 options={
                     # if the token is expired we still want to have an instance with expired=True,
                     # thus we verify exp ourselves rather than having jwt throw an exception
-                    'verify_exp': False,
-                    'require': self.registered_claims
-                }
+                    "verify_exp": False,
+                    "require": self.registered_claims,
+                },
             )
 
             self.data = self.jwt_data.copy()
@@ -127,7 +128,8 @@ class UserToken(Token):
 
     This token is used by both access and refresh tokens.
     """
-    USER_ID_KEY = 'user_id'
+
+    USER_ID_KEY = "user_id"
 
     def __init__(self, *args, **kwargs):
         self.user = None
@@ -136,10 +138,7 @@ class UserToken(Token):
     def encode(self, user, data=None) -> None:
         self.user = user
 
-        super().encode({
-            **(data or {}),
-            self.USER_ID_KEY: user.id
-        })
+        super().encode({**(data or {}), self.USER_ID_KEY: user.id})
 
     def decode(self, data) -> bool:
         if not super().decode(data):
@@ -168,26 +167,24 @@ class AccessToken(UserToken):
         super().__init__(
             from_encoding=from_encoding,
             from_data=from_user,
-            duration=api_settings.ACCESS_TOKEN_LIFETIME
+            duration=api_settings.ACCESS_TOKEN_LIFETIME,
         )
 
 
 class RefreshToken(UserToken):
-    TOKEN_STRING_KEY = 'token_string'
+    TOKEN_STRING_KEY = "token_string"
 
     def __init__(self, from_encoding=None, from_user=None):
         self.token_string = None
         super().__init__(
             from_encoding=from_encoding,
             from_data=from_user,
-            duration=api_settings.REFRESH_TOKEN_LIFETIME
+            duration=api_settings.REFRESH_TOKEN_LIFETIME,
         )
 
     def encode(self, user, data=None) -> None:
         self.token_string = generate_unique_token()
-        super().encode(user, {
-            self.TOKEN_STRING_KEY: self.token_string
-        })
+        super().encode(user, {self.TOKEN_STRING_KEY: self.token_string})
 
     def decode(self, data) -> bool:
         if not super().decode(data):
@@ -203,11 +200,7 @@ class RefreshToken(UserToken):
         if not self.valid():
             raise Exception("Invalid token cannot be saved!")
 
-        mod = ActiveToken(
-            token_string=self.token_string,
-            owner=self.user,
-            exp=self.exp
-        )
+        mod = ActiveToken(token_string=self.token_string, owner=self.user, exp=self.exp)
 
         mod.save()
         return mod
@@ -218,10 +211,7 @@ class RefreshToken(UserToken):
 
         ActiveToken.objects.filter(token_string=self.token_string).delete()
 
-        mod = BlacklistedToken(
-            token_string=self.token_string,
-            exp=self.exp
-        )
+        mod = BlacklistedToken(token_string=self.token_string, exp=self.exp)
 
         mod.save()
 

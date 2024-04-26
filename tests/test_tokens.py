@@ -33,7 +33,9 @@ def test_token_no_exp():
     # try decoding a token without an 'exp' claim and verify it is marked as invalid
     encoding = jwt.encode(
         {"data": 42, "iat": datetime.now(tz=timezone.utc)},
-        api_settings.SIGNING_KEY, algorithm=api_settings.ALGORITHM)
+        api_settings.SIGNING_KEY,
+        algorithm=api_settings.ALGORITHM,
+    )
     token = Token(from_encoding=encoding)
     assert not token.valid()
 
@@ -42,7 +44,9 @@ def test_token_no_iat():
     # try decoding a token without a 'iat' claim and verify it is marked as invalid
     encoding = jwt.encode(
         {"data": 42, "exp": datetime.now(tz=timezone.utc) + timedelta(minutes=5)},
-        api_settings.SIGNING_KEY, algorithm=api_settings.ALGORITHM)
+        api_settings.SIGNING_KEY,
+        algorithm=api_settings.ALGORITHM,
+    )
     token = Token(from_encoding=encoding)
     assert not token.valid()
 
@@ -57,7 +61,7 @@ def test_token_decode_expired():
 
 def test_bad_token():
     # try to decode random data and verify the token is marked as invalid
-    decoded = Token(from_encoding='12345')
+    decoded = Token(from_encoding="12345")
     assert not decoded.valid()
 
 
@@ -108,15 +112,17 @@ def test_forge_access_token(user_a):
 def test_user_token_missing_user_id():
     # create a valid token but with missing user id and
     # check that it is marked as invalid
-    token = AccessToken(from_encoding=jwt.encode(
-        {
-            "exp": datetime.now(tz=timezone.utc) + timedelta(minutes=5),
-            "iat": datetime.now(tz=timezone.utc),
-            # missing user ID
-        },
-        api_settings.SIGNING_KEY,
-        algorithm=api_settings.ALGORITHM
-    ))
+    token = AccessToken(
+        from_encoding=jwt.encode(
+            {
+                "exp": datetime.now(tz=timezone.utc) + timedelta(minutes=5),
+                "iat": datetime.now(tz=timezone.utc),
+                # missing user ID
+            },
+            api_settings.SIGNING_KEY,
+            algorithm=api_settings.ALGORITHM,
+        )
+    )
 
     assert not token.valid()
 
@@ -125,15 +131,17 @@ def test_user_token_missing_user_id():
 def test_user_token_wrong_user_id():
     # create a valid token but with a non-existing user id and
     # check that it is marked as invalid
-    token = UserToken(from_encoding=jwt.encode(
-        {
-            "exp": datetime.now(tz=timezone.utc) + timedelta(minutes=5),
-            "iat": datetime.now(tz=timezone.utc),
-            AccessToken.USER_ID_KEY: 1234  # non-existing user
-        },
-        api_settings.SIGNING_KEY,
-        algorithm=api_settings.ALGORITHM
-    ))
+    token = UserToken(
+        from_encoding=jwt.encode(
+            {
+                "exp": datetime.now(tz=timezone.utc) + timedelta(minutes=5),
+                "iat": datetime.now(tz=timezone.utc),
+                AccessToken.USER_ID_KEY: 1234,  # non-existing user
+            },
+            api_settings.SIGNING_KEY,
+            algorithm=api_settings.ALGORITHM,
+        )
+    )
 
     assert not token.valid()
 
@@ -196,15 +204,17 @@ def test_refresh_token_decode_blacklist(user_a):
 def test_refresh_token_missing_token_string(user_a):
     # create a valid token but with a non-existing user id and
     # check that it is marked as invalid
-    token = RefreshToken(from_encoding=jwt.encode(
-        {
-            "exp": datetime.now(tz=timezone.utc) + timedelta(minutes=5),
-            "iat": datetime.now(tz=timezone.utc),
-            AccessToken.USER_ID_KEY: user_a.id,
-        },
-        api_settings.SIGNING_KEY,
-        algorithm=api_settings.ALGORITHM
-    ))
+    token = RefreshToken(
+        from_encoding=jwt.encode(
+            {
+                "exp": datetime.now(tz=timezone.utc) + timedelta(minutes=5),
+                "iat": datetime.now(tz=timezone.utc),
+                AccessToken.USER_ID_KEY: user_a.id,
+            },
+            api_settings.SIGNING_KEY,
+            algorithm=api_settings.ALGORITHM,
+        )
+    )
 
     assert not token.valid()
 

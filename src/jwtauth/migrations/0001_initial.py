@@ -15,20 +15,35 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='BlacklistedToken',
+            name="BlacklistedToken",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('token_string', models.CharField(max_length=30, unique=True)),
-                ('exp', models.IntegerField()),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True, primary_key=True, serialize=False, verbose_name="ID"
+                    ),
+                ),
+                ("token_string", models.CharField(max_length=30, unique=True)),
+                ("exp", models.IntegerField()),
             ],
         ),
         migrations.CreateModel(
-            name='ActiveToken',
+            name="ActiveToken",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('token_string', models.CharField(max_length=30, unique=True)),
-                ('exp', models.IntegerField()),
-                ('owner', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True, primary_key=True, serialize=False, verbose_name="ID"
+                    ),
+                ),
+                ("token_string", models.CharField(max_length=30, unique=True)),
+                ("exp", models.IntegerField()),
+                (
+                    "owner",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL
+                    ),
+                ),
             ],
         ),
     ]

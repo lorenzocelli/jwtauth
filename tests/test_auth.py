@@ -6,10 +6,11 @@ from jwtauth.models import ActiveToken, BlacklistedToken
 
 def login(username, password):
     client = Client()
-    response = client.post(reverse("login"), {
-        "username": username,
-        "password": password
-    }, content_type="application/json")
+    response = client.post(
+        reverse("login"),
+        {"username": username, "password": password},
+        content_type="application/json",
+    )
 
     assert response.status_code == 204
     assert len(response.cookies) == 2
@@ -66,7 +67,7 @@ def test_logout(logged_client):
 
     for cookie in response.cookies.values():
         # verify the cookie has been deleted
-        assert cookie['max-age'] == 0
+        assert cookie["max-age"] == 0
 
     # verify the active token has been removed
     assert ActiveToken.objects.count() == 0

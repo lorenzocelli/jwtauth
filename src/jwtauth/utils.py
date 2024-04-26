@@ -2,9 +2,7 @@ from random import SystemRandom
 
 from jwtauth.models import ActiveToken
 
-UNICODE_ASCII_CHARACTER_SET = ('abcdefghijklmnopqrstuvwxyz'
-                               'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-                               '0123456789')
+UNICODE_ASCII_CHARACTER_SET = "abcdefghijklmnopqrstuvwxyz" "ABCDEFGHIJKLMNOPQRSTUVWXYZ" "0123456789"
 
 
 def generate_token(length=30, chars=UNICODE_ASCII_CHARACTER_SET):
@@ -19,7 +17,7 @@ def generate_token(length=30, chars=UNICODE_ASCII_CHARACTER_SET):
     """
 
     rand = SystemRandom()
-    return ''.join(rand.choice(chars) for x in range(length))
+    return "".join(rand.choice(chars) for x in range(length))
 
 
 def generate_unique_token():
