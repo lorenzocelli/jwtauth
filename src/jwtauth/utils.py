@@ -2,11 +2,13 @@ from random import SystemRandom
 
 from jwtauth.models import ActiveToken
 
-UNICODE_ASCII_CHARACTER_SET = "abcdefghijklmnopqrstuvwxyz" "ABCDEFGHIJKLMNOPQRSTUVWXYZ" "0123456789"
+UNICODE_ASCII_CHARACTER_SET = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 
 
 def generate_token(length=30, chars=UNICODE_ASCII_CHARACTER_SET):
-    """From OAuthLib: https://github.com/oauthlib/oauthlib/tree/d4b6699f8ccb608152b764919e0bd3d38a7b171f
+    """
+    From OAuthLib:
+    https://github.com/oauthlib/oauthlib/tree/d4b6699f8ccb608152b764919e0bd3d38a7b171f
 
     Generates a non-guessable OAuth token
 

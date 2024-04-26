@@ -25,10 +25,12 @@ class Token:
         """
         Initialize a JWT token, either decoding it from a string or encoding it from data.
 
-        :param from_encoding: The encoded token string. If this is provided, the token will be decoded.
-        :param from_data: The data to encode into this token. If this is provided, the token will be encoded.
-        :param duration: The duration for which the token is valid. Converted into integer seconds and used to
-            set the expiration field of the JWT.
+        :param from_encoding: The encoded token string. If this is provided,
+            the token will be decoded.
+        :param from_data: The data to encode into this token. If this is provided,
+            the token will be encoded.
+        :param duration: The duration for which the token is valid. Converted into integer
+            seconds and used to set the expiration field of the JWT.
         """
         if not from_encoding and not from_data:
             raise Exception("Please specify either the data or the encoding to create the token.")
