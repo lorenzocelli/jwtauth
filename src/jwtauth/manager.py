@@ -1,5 +1,4 @@
 from django.conf import settings
-from rest_framework import exceptions
 
 from jwtauth.settings import api_settings
 from jwtauth.tokens import AccessToken, RefreshToken
