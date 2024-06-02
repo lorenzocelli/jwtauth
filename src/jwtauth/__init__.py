@@ -1,4 +1,4 @@
-from rest_framework import authentication
+from rest_framework import authentication, exceptions
 
 
 class JwtAuthentication(authentication.BaseAuthentication):
@@ -7,6 +7,10 @@ class JwtAuthentication(authentication.BaseAuthentication):
 
         if request.jwtauth.is_authenticated:
             return request.jwtauth.user, None
+
+        if request.jwtauth.access_token or request.jwtauth.refresh_token:
+            # the user attempted to log in but using invalid or expired tokens
+            raise exceptions.AuthenticationFailed("Tokens are either invalid or expired.")
 
         return None
 

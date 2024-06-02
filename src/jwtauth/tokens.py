@@ -1,14 +1,12 @@
 from calendar import timegm
-
-from django.contrib.auth import get_user_model
-
-from datetime import datetime, timezone, timedelta
-
-from jwtauth.utils import generate_unique_token
-from jwtauth.settings import api_settings
-from jwtauth.models import BlacklistedToken, ActiveToken
+from datetime import datetime, timedelta, timezone
 
 import jwt
+from django.contrib.auth import get_user_model
+
+from jwtauth.models import ActiveToken, BlacklistedToken
+from jwtauth.settings import api_settings
+from jwtauth.utils import generate_unique_token
 
 IAT = "iat"
 EXP = "exp"
@@ -165,23 +163,27 @@ class UserToken(Token):
 
 class AccessToken(UserToken):
 
-    def __init__(self, from_encoding=None, from_user=None):
+    def __init__(
+        self, from_encoding=None, from_user=None, duration=api_settings.ACCESS_TOKEN_LIFETIME
+    ):
         super().__init__(
             from_encoding=from_encoding,
             from_data=from_user,
-            duration=api_settings.ACCESS_TOKEN_LIFETIME,
+            duration=duration,
         )
 
 
 class RefreshToken(UserToken):
     TOKEN_STRING_KEY = "token_string"
 
-    def __init__(self, from_encoding=None, from_user=None):
+    def __init__(
+        self, from_encoding=None, from_user=None, duration=api_settings.REFRESH_TOKEN_LIFETIME
+    ):
         self.token_string = None
         super().__init__(
             from_encoding=from_encoding,
             from_data=from_user,
-            duration=api_settings.REFRESH_TOKEN_LIFETIME,
+            duration=duration,
         )
 
     def encode(self, user, data=None) -> None:

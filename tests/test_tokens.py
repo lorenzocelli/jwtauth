@@ -1,9 +1,11 @@
-from jwtauth.tokens import Token, UserToken, AccessToken, RefreshToken
-from datetime import timedelta, datetime, timezone
-from jwtauth.settings import api_settings
-from jwtauth.models import ActiveToken
-import pytest
+from datetime import datetime, timedelta, timezone
+
 import jwt
+import pytest
+
+from jwtauth.models import ActiveToken
+from jwtauth.settings import api_settings
+from jwtauth.tokens import AccessToken, RefreshToken, Token, UserToken
 
 
 def test_valid_token():
