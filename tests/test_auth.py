@@ -74,14 +74,9 @@ def test_expired_tokens(client, user_a, view):
 
 
 @pytest.mark.django_db
-def test_protected_view_1(logged_client):
-    response = logged_client.get(reverse("logged1"))
-    assert response.status_code == status.HTTP_204_NO_CONTENT
-
-
-@pytest.mark.django_db
-def test_protected_view_2(logged_client):
-    response = logged_client.get(reverse("logged2"))
+@pytest.mark.parametrize("view", ["logged1", "logged2"])
+def test_protected_view(logged_client, view):
+    response = logged_client.get(reverse(view))
     assert response.status_code == status.HTTP_204_NO_CONTENT
 
 
