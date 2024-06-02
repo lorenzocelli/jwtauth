@@ -7,7 +7,7 @@ packages = ["src/jwtauth"]
 
 [project]
 name = "drf-cookie-jwtauth"
-version = "0.0.4"
+version = "0.0.5"
 authors = [
   { name="Lorenzo Celli", email="lorenzo.celli00@gmail.com" },
 ]
