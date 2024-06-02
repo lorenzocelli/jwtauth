@@ -5,11 +5,10 @@ A JWT-based authentication system for
 
 ## 🪄 Installation
 
-This package is not available on the pip registry yet. To install it, download the compressed package from
-[here](https://github.com/lorenzocelli/jwtauth/actions/runs/7941362543/artifacts/1253381430), 
-extract it and then run:
+This package is available on the [pip registry](https://pypi.org/project/drf-cookie-jwtauth/). 
+To install it, you can run:
 ```
-python3 -m pip install jwtauth-0.0.1.tar.gz
+pip install drf-cookie-jwtauth
 ```
 
 ## ⚙️ Configuration
