@@ -1,9 +1,7 @@
-from rest_framework import exceptions
 from django.conf import settings
 
-from jwtauth.tokens import AccessToken, RefreshToken
 from jwtauth.settings import api_settings
-
+from jwtauth.tokens import AccessToken, RefreshToken
 
 ACCESS_TOKEN_KEY = api_settings.ACCESS_TOKEN_COOKIE_NAME
 REFRESH_TOKEN_KEY = api_settings.REFRESH_TOKEN_COOKIE_NAME
@@ -29,12 +27,12 @@ class AuthManager:
             # we end up here if:
             # - one of the tokens was forged by a malicious user
             # - the refresh token was blacklisted
-            raise exceptions.AuthenticationFailed("Invalid tokens")
+            return
 
         if self.access_token.expired():
             if self.refresh_token.expired():
                 # both tokens are expired, the user has to log in again
-                raise exceptions.AuthenticationFailed("Expired tokens")
+                return
 
             # we silently refresh the authentication token and let the user in
             self.silent_refresh = True
