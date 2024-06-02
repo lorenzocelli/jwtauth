@@ -1,4 +1,4 @@
-from rest_framework import authentication, exceptions
+from rest_framework import authentication
 
 
 class JwtAuthentication(authentication.BaseAuthentication):
