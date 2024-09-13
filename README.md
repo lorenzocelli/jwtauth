@@ -1,5 +1,8 @@
 # jwtauth
 
+[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
+![Test](https://github.com/lorenzocelli/jwtauth/actions/workflows/python-test.yml/badge.svg?branch=main)
+
 A JWT-based authentication system for 
 [Django REST Framework](https://github.com/encode/django-rest-framework/tree/master).
 
