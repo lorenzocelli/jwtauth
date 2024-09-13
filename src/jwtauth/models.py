@@ -8,7 +8,6 @@ class BlacklistedToken(models.Model):
 
 
 class ActiveToken(models.Model):
-
-    token_string = models.CharField(max_length=30,     unique=True)
+    token_string = models.CharField(max_length=30, unique=True)
     owner = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     exp = models.IntegerField()
