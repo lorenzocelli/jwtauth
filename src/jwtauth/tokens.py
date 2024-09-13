@@ -18,7 +18,10 @@ class Token:
     registered_claims = [IAT, EXP]
 
     def __init__(
-        self, from_encoding: str = None, from_data: dict = None, duration: timedelta = None
+        self,
+        from_encoding: str = None,
+        from_data: dict = None,
+        duration: timedelta = None,
     ):
         """
         Initialize a JWT token, either decoding it from a string or encoding it from data.
@@ -61,7 +64,6 @@ class Token:
             self.is_valid = True
 
     def encode(self, data) -> None:
-
         self.data = data
 
         # time in seconds since epoch
@@ -74,12 +76,9 @@ class Token:
             EXP: self.exp,
         }
 
-        self.encoding = jwt.encode(
-            self.jwt_data, api_settings.SIGNING_KEY, algorithm=api_settings.ALGORITHM
-        )
+        self.encoding = jwt.encode(self.jwt_data, api_settings.SIGNING_KEY, algorithm=api_settings.ALGORITHM)
 
     def decode(self, data) -> bool:
-
         self.encoding = data
 
         try:
@@ -113,7 +112,6 @@ class Token:
         return self.is_valid
 
     def expired(self) -> bool:
-
         if not self.valid():
             raise Exception("An invalid token cannot be tested for expiration.")
 
@@ -162,9 +160,11 @@ class UserToken(Token):
 
 
 class AccessToken(UserToken):
-
     def __init__(
-        self, from_encoding=None, from_user=None, duration=api_settings.ACCESS_TOKEN_LIFETIME
+        self,
+        from_encoding=None,
+        from_user=None,
+        duration=api_settings.ACCESS_TOKEN_LIFETIME,
     ):
         super().__init__(
             from_encoding=from_encoding,
@@ -177,7 +177,10 @@ class RefreshToken(UserToken):
     TOKEN_STRING_KEY = "token_string"
 
     def __init__(
-        self, from_encoding=None, from_user=None, duration=api_settings.REFRESH_TOKEN_LIFETIME
+        self,
+        from_encoding=None,
+        from_user=None,
+        duration=api_settings.REFRESH_TOKEN_LIFETIME,
     ):
         self.token_string = None
         super().__init__(

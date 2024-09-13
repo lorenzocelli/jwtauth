@@ -25,5 +25,21 @@ dependencies = [
   "djangorestframework~=3.14.0",
 ]
 
-[tool.black]
-line-length = 100
+[tool.ruff.lint]
+select = [
+    # pycodestyle
+    "E",
+    # Pyflakes
+    "F",
+    # pyupgrade
+    "UP",
+    # flake8-bugbear
+    "B",
+    # flake8-simplify
+    "SIM",
+    # isort
+    "I",
+]
+
+[tool.ruff]
+line-length = 120

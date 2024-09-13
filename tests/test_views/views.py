@@ -38,7 +38,6 @@ class LoggedView(APIView):
 
 @api_view(["GET"])
 def username_view(request):
-
     username = ""
 
     if request.user.is_authenticated:
