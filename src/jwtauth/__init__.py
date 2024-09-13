@@ -2,9 +2,7 @@ from rest_framework import authentication
 
 
 class JwtAuthentication(authentication.BaseAuthentication):
-
     def authenticate(self, request):
-
         if request.jwtauth.is_authenticated:
             return request.jwtauth.user, None
 

@@ -8,7 +8,6 @@ REFRESH_TOKEN_KEY = api_settings.REFRESH_TOKEN_COOKIE_NAME
 
 
 class AuthManager:
-
     def __init__(self, request):
         self.access_token = get_access_token(request)
         self.refresh_token = get_refresh_token(request)
@@ -71,11 +70,7 @@ class AuthManager:
             set_refresh_token(response, self.refresh_token)
 
         if self.logging_out:
-            if (
-                self.refresh_token
-                and self.refresh_token.valid()
-                and not self.refresh_token.expired()
-            ):
+            if self.refresh_token and self.refresh_token.valid() and not self.refresh_token.expired():
                 # blacklist the token if valid and still alive
                 self.refresh_token.blacklist()
 
