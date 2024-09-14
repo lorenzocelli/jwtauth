@@ -6,7 +6,7 @@ authors = ["LorenzoCelli <lorenzo.celli00@gmail.com>"]
 license = "MIT License"
 readme = "README.md"
 packages = [
-    {include = "src/jwtauth"}
+    { include = "jwtauth", from="src" }
 ]
 
 [tool.poetry.dependencies]
