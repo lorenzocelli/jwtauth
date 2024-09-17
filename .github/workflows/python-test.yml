@@ -56,6 +56,9 @@ jobs:
       ACCESS_TOKEN_COOKIE_NAME: cookie_1
       REFRESH_TOKEN_COOKIE_NAME: cookie_2
       ALGORITHM: HS384
+    defaults:
+      run:
+        working-directory: tests/sample_app
     steps:
       - uses: actions/checkout@v4
       - name: Install Python
@@ -65,8 +68,6 @@ jobs:
       - name: Install Poetry
         uses: snok/install-poetry@v1
       - name: Install dependencies
-        run: |
-          cd tests/sample_app
-          poetry install
+        run: poetry install
       - name: Django Check
         run: poetry run python manage.py check
