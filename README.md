@@ -21,6 +21,7 @@ Add `jwtauth` to your `INSTALLED_APPS`:
 ```python
 INSTALLED_APPS = [
     'jwtauth',
+    # ...
 ]
 ```
 
