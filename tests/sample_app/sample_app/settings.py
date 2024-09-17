@@ -28,8 +28,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 JWTAUTH = {
-    x: os.getenv(x)
-    for x in ["SIGNING_KEY", "ACCESS_TOKEN_COOKIE_NAME", "REFRESH_TOKEN_COOKIE_NAME", "ALGORITHM"]
+    x: os.getenv(x) for x in ["SIGNING_KEY", "ACCESS_TOKEN_COOKIE_NAME", "REFRESH_TOKEN_COOKIE_NAME", "ALGORITHM"]
 }
 
 # Application definition
