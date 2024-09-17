@@ -86,12 +86,8 @@ def get_token(request, key, token_class):
 
 
 def set_token(response, key, token):
-    if settings.DEBUG:
-        # locally, we allow non-secure cookies
-        response.set_cookie(key, token.encoding, httponly=True, samesite="Strict", secure=False)
-        return
-
-    response.set_cookie(key, token.encoding, httponly=True, samesite="Strict", secure=True)
+    secure = not settings.DEBUG  # locally, we allow non-secure cookies
+    response.set_cookie(key, token.encoding, httponly=True, samesite="Strict", secure=secure)
 
 
 def get_access_token(request):
