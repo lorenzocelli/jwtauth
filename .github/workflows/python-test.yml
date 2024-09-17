@@ -47,3 +47,26 @@ jobs:
         run: |
           ruff check --output-format=github .
           ruff format --check .
+
+  sample_app:
+    name: Sample App 🚀
+    runs-on: ubuntu-latest
+    env:
+      SIGNING_KEY: 123456
+      ACCESS_TOKEN_COOKIE_NAME: cookie_1
+      REFRESH_TOKEN_COOKIE_NAME: cookie_2
+      ALGORITHM: HS384
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
+      - name: Install dependencies
+        run: |
+          cd tests/sample_app
+          poetry install
+      - name: Django Check
+        run: poetry run python manage.py check
